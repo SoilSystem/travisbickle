@@ -1,8 +1,6 @@
 import requests
 from bs4 import BeautifulSoup
-from json import dumps
 import lxml
-from django.shortcuts import render
 from flask import Flask, render_template, request, send_file, redirect, session, g
 from json import dumps
 
@@ -10,7 +8,7 @@ headers={
     "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/99.0.4844.51 Safari/537.36"
   #  "Accept-Language": "en"
 }
-url= "https://www.viamichelin.it/web/Stazioni-di-servizio?address=70024"
+url = "https://www.viamichelin.it/web/Stazioni-di-servizio?address=70024"
 r = requests.get(url, headers=headers)
 soup = BeautifulSoup(r.text, "lxml")
 stazioni = soup.find("div", "poilist-result-count")
@@ -27,7 +25,7 @@ def fungasolio():
             prezzo_gasolio = float(gasolio[jgas].find("span", "poi-item-fuel-value").text)
             posgasolio = jgas
         jgas = jgas + 1
-    print(prezzo_gasolio)
+    return prezzo_gasolio
 
 
 def funsp():
@@ -39,7 +37,7 @@ def funsp():
             prezzo_sp95 = float(sp95[jsp].find("span", "poi-item-fuel-value").text)
             possp95 = jsp
         jsp = jsp + 1
-    print(prezzo_sp95)
+    return prezzo_sp95
 
 
 def fungpl():
@@ -51,7 +49,7 @@ def fungpl():
             prezzo_gpl = float(gpl[jgpl].find("span", "poi-item-fuel-value").text)
             posgpl = jgpl
         jgpl = jgpl + 1
-    print(prezzo_gpl)
+    return prezzo_gpl
 
 
 def funmet():
@@ -63,8 +61,7 @@ def funmet():
             prezzo_metano = float(metano[jmet].find("span", "poi-item-fuel-value").text)
             posmetano = j
         jmet = jmet + 1
-
-    #print(prezzo_metano)
+    return prezzo_metano
 
 
 dataDictionary = {
@@ -76,6 +73,29 @@ dataJSON = dumps(dataDictionary)
 print(dataJSON)
 
 
+app = Flask(__name__)
+app.secret_key = "key"
+costo_totale_attuale = None
+costo_totale_fareconsulenza = None
+
+@app.route('/', methods=["POST", "GET"])
+def index():
+    return render_template("index.html")
+
+@app.route('/about', methods=["POST", "GET"])
+def about():
+    return render_template("about.html")
+
+@app.route('/tool2', methods=["POST", "GET"])
+def tool2():
+    return render_template("tool2.html",
+                           metano="il prezzo del metano è: " + str(funmet()),
+                           gpl="il prezzo del GPL è: " + str(fungpl()),
+                           benzina="il prezzo della benzina è: " + str(funsp()),
+                           gasolio="il prezzo del gasolio è: " + str(fungasolio()))
+
+if __name__ == '__main__':
+    app.run(debug=False, host='0.0.0.0')
 
 
 #sostituire len(prezzo1) a stazioni      //print(prezzo1[0])
