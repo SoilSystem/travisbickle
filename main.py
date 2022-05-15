@@ -1,3 +1,6 @@
+from json import dumps
+from flask import Flask, render_template, request, send_file, redirect, session, g
+from json import dumps
 import requests
 from bs4 import BeautifulSoup
 from json import dumps
@@ -15,6 +18,8 @@ stazioni = soup.find("div", "poilist-result-count")
 #print(stazioni.text)
 prezzo = 10.5
 j = 0
+
+
 def fungasolio():
     gasolio = soup.findAll("li", "poi-item-fuel-price-1")
     prezzo_gasolio = prezzo
@@ -25,6 +30,8 @@ def fungasolio():
             posgasolio = jgas
         jgas = jgas + 1
     print(prezzo_gasolio)
+
+
 def funsp():
     sp95 = soup.findAll("li", "poi-item-fuel-price-2")
     prezzo_sp95 = prezzo
@@ -35,6 +42,8 @@ def funsp():
             possp95 = jsp
         jsp = jsp + 1
     print(prezzo_sp95)
+
+
 def fungpl():
     gpl = soup.findAll("li", "poi-item-fuel-price-4")
     prezzo_gpl = prezzo
@@ -45,6 +54,8 @@ def fungpl():
             posgpl = jgpl
         jgpl = jgpl + 1
     print(prezzo_gpl)
+
+
 def funmet():
     metano = soup.findAll("li", "poi-item-fuel-price-8")
     prezzo_metano = prezzo
@@ -65,6 +76,28 @@ dataDictionary = {
     # dump data
 dataJSON = dumps(dataDictionary)
 print(dataJSON)
+
+
+app = Flask(__name__)
+app.secret_key = "key"
+costo_totale_attuale = None
+costo_totale_fareconsulenza = None
+
+@app.route('/')
+def index():
+    return render_template("index.html")
+
+@app.route('/about')
+def about():
+    return render_template("about.html")
+
+@app.route('/tool2')
+def tool2():
+    return render_template("tool2.html")
+
+if __name__ == '__main__':
+    app.run(debug=False, host='0.0.0.0')
+
 
 #sostituire len(prezzo1) a stazioni      //print(prezzo1[0])
 #print(prezzo1[0].find("span", "poi-item-fuel-value").text)
