@@ -1,12 +1,11 @@
-from json import dumps
-from flask import Flask, render_template, request, send_file, redirect, session, g
-from json import dumps
 import requests
 from bs4 import BeautifulSoup
 from json import dumps
 import lxml
 from django.shortcuts import render
+from flask import Flask, render_template, request, send_file, redirect, session, g
 from json import dumps
+
 headers={
     "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/99.0.4844.51 Safari/537.36"
   #  "Accept-Language": "en"
@@ -18,7 +17,6 @@ stazioni = soup.find("div", "poilist-result-count")
 #print(stazioni.text)
 prezzo = 10.5
 j = 0
-
 
 def fungasolio():
     gasolio = soup.findAll("li", "poi-item-fuel-price-1")
@@ -78,25 +76,6 @@ dataJSON = dumps(dataDictionary)
 print(dataJSON)
 
 
-app = Flask(__name__)
-app.secret_key = "key"
-costo_totale_attuale = None
-costo_totale_fareconsulenza = None
-
-@app.route('/')
-def index():
-    return render_template("index.html")
-
-@app.route('/about')
-def about():
-    return render_template("about.html")
-
-@app.route('/tool2')
-def tool2():
-    return render_template("tool2.html")
-
-if __name__ == '__main__':
-    app.run(debug=False, host='0.0.0.0')
 
 
 #sostituire len(prezzo1) a stazioni      //print(prezzo1[0])
