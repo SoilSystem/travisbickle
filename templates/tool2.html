@@ -8,21 +8,6 @@
       <title>About</title>
       <link rel="icon" type="image/x-icon"  href="assets/niro1.png" />
       <link href="../static/css/styles.css" rel="stylesheet" />
-      <script>
-         var xhr
-         function caricaDati(x)
-         {
-         xhr = new XMLHttpRequest()
-         xhr.open("GET", "venv/main.py?dati=", true)
-         xhr.send()
-         xhr.onreadystatechange=visualizza
-         }
-         function visualizza()
-         {
-         var datiJson = this.responseText
-         alert(datiJson)
-         }
-      </script>
    </head>
    <body style="background-image: url('../static/assets/img/taxi.jpg');">
       <header>
@@ -48,12 +33,8 @@
          <div class="container">
             <div class="row">
                <div class="col-xl-9 mx-auto" id="data">
-                  <div class="cta-inner bg-faded text-center rounded">
-                     <button onclick="caricaDati()">prova</button>
-                     <p class="m-0 small">{{metano}}</p>
-                     <p class="m-0 small">{{gpl}}</p>
-                     <p class="m-0 small">{{benzina}}</p>
-                     <p class="m-0 small">{{gasolio}}</p>
+                  <div class="cta-inner bg-faded text-center rounded" id="lista">
+                     <p>{{stazioni}}</p>
                   </div>
                </div>
             </div>

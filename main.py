@@ -11,10 +11,17 @@ headers={
 url = "https://www.viamichelin.it/web/Stazioni-di-servizio?address=70024"
 r = requests.get(url, headers=headers)
 soup = BeautifulSoup(r.text, "lxml")
-stazioni = soup.find("div", "poilist-result-count")
-#print(stazioni.text)
 prezzo = 10.5
 j = 0
+
+
+
+stazioni = soup.find("div", "poilist-result-count").text
+NrStazioni= stazioni
+lista = soup.findAll("li", "poi-item poi-item-gasStation")
+
+
+
 
 def fungasolio():
     gasolio = soup.findAll("li", "poi-item-fuel-price-1")
@@ -64,19 +71,10 @@ def funmet():
     return prezzo_metano
 
 
-dataDictionary = {
-    'hello': 'World',
-    'geeks': 'forgeeks',
-    }
-    # dump data
-dataJSON = dumps(dataDictionary)
-print(dataJSON)
-
 
 app = Flask(__name__)
 app.secret_key = "key"
-costo_totale_attuale = None
-costo_totale_fareconsulenza = None
+
 
 @app.route('/', methods=["POST", "GET"])
 def index():
@@ -89,10 +87,7 @@ def about():
 @app.route('/tool2', methods=["POST", "GET"])
 def tool2():
     return render_template("tool2.html",
-                           metano="il prezzo del metano è: " + str(funmet()),
-                           gpl="il prezzo del GPL è: " + str(fungpl()),
-                           benzina="il prezzo della benzina è: " + str(funsp()),
-                           gasolio="il prezzo del gasolio è: " + str(fungasolio()))
+                           stazioni=str(lista))
 
 if __name__ == '__main__':
     app.run(debug=False, host='0.0.0.0')
