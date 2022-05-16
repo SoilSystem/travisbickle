@@ -75,6 +75,7 @@ def funmet():
 app = Flask(__name__)
 app.secret_key = "key"
 
+lista2= "<b>suck my dick<b>"
 
 @app.route('/', methods=["POST", "GET"])
 def index():
