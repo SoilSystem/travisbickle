@@ -9,7 +9,17 @@
       <link rel="icon" type="image/x-icon"  href="assets/niro1.png" />
       <link href="../static/css/styles.css" rel="stylesheet" />
    </head>
-   <body style="background-image: url('../static/assets/img/taxi.jpg');">
+   <script>
+   var i
+      function controllo()
+      {
+         var undefined = document.getElementsByClassName("poi-item-fuel-price-");
+        while(undefined.length > 0){
+        undefined[0].parentNode.removeChild(undefined[0]);
+    }
+      }
+   </script>
+   <body onload="controllo()" style="background-image: url('../static/assets/img/taxi.jpg');">
       <header>
          <h1 class="site-heading text-center text-faded d-none d-lg-block">
             <span style = "text-shadow: 2px 2px 4px black;" class="site-heading-upper text-primary mb-3">TRAVIS'S BICKLE SPACE</span>
@@ -34,6 +44,9 @@
             <div class="row">
                <div class="col-xl-9 mx-auto" id="data">
                   <div class="cta-inner bg-faded text-center rounded" id="lista">
+                     <form>
+                       🚕 <input type="text" value="Inserire località (pref. CAP)" name="cap">
+                     </form>
                      {{stazioni|safe }}
                   </div>
                </div>
