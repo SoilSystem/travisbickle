@@ -44,9 +44,15 @@
             <div class="row">
                <div class="col-xl-9 mx-auto" id="data">
                   <div class="cta-inner bg-faded text-center rounded" id="lista">
-                     <form>
-                       🚕 <input type="text" value="Inserire località (pref. CAP)" name="cap">
+                     <form action = "http://localhost:5000/tool2" method = "get">
+                      <p style="font-size:40px">🚕</p><input type="text" placeholder="Inserire località (pref. CAP)" name="cap"><br>
+                        <input type="radio" id="b7" name="carburante" value="b7" >
+                        <input type="radio" id="e5" name="carburante"value="e5" >
+                        <input type="radio" id="lpg" name="carburante" value="lpg" >
+                        <input type="radio" id="cng" name="carburante" value="cng" ><br>
+                        <input type="submit" value="Invia">
                      </form>
+                     <br>
                      {{stazioni|safe }}
                   </div>
                </div>

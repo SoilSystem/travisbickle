@@ -11873,21 +11873,21 @@ color:#757575;
 }
 .poi-item-fuel-price-1
 {
-margin-bottom:5px;
+margin-bottom:15px;
 }
 .poi-item-fuel-price-2
 {
-margin-bottom:5px;
+margin-bottom:15px;
 }
 
 .poi-item-fuel-price-4
 {
-margin-bottom:5px;
+margin-bottom:15px;
 }
 
 .poi-item-fuel-price-8
 {
-margin-bottom:5px;
+margin-bottom:15px;
 }
 .poi-item-fuel-price-1 .poi-item-fuel-type
 {
@@ -11905,4 +11905,12 @@ background-color:#4783fc;
 {
 background-color:#00d0ff;
 }
-
+.poi-item-fuel-label
+{
+font-family:Arial Black;
+}
+.carburante
+{
+margin-left: 20px;
+margin-right: 20px;
+}

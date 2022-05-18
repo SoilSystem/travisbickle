@@ -4,6 +4,12 @@ import lxml
 from flask import Flask, render_template, request, send_file, redirect, session, g
 from json import dumps
 
+'''
+@app.route('/tool2', methods=['post', 'get'])
+def cap():
+    cap = request.form.get('cap')
+    return render_template('tool2.html', cap=cap)
+    '''
 headers={
     "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/99.0.4844.51 Safari/537.36"
   #  "Accept-Language": "en"
