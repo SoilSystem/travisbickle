@@ -96,7 +96,7 @@ def about():
 @app.route('/tool2', methods=["POST", "GET"])
 def tool2():
     global lista
-    cap = request.form.get('cap')
+    cap = '70024'
     stazioni(cap)
     print(lista)
     return render_template("tool2.html",
