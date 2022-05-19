@@ -103,6 +103,17 @@ def tool2():
                            stazioni=str(lista),
                            cap = cap)
 
+
+@app.route('/tool3', methods=["POST", "GET"])
+def tool2():
+    global lista
+    cap = request.form['cap']
+    stazioni(cap)
+    print(lista)
+    return render_template("tool2.html",
+                           stazioni=str(lista),
+                           cap = cap)
+
 if __name__ == '__main__':
     app.run(debug=True, host='0.0.0.0')
 
