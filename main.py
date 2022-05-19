@@ -10,7 +10,6 @@ def cap():
     cap = request.form.get('cap')
     return render_template('tool2.html', cap=cap)
     '''
-cap = None
 prezzo = 10.5
 j = 0
 lista = None
@@ -20,12 +19,14 @@ headers={
   #  "Accept-Language": "en"
 }
 
-def stazioni():
+def stazioni(cap1):
     global soup
-    url = "https://www.viamichelin.it/web/Stazioni-di-servizio?address=" + str(cap)
+    global lista
+    url = "https://www.viamichelin.it/web/Stazioni-di-servizio?address=" + str(cap1)
+    print(url)
     r = requests.get(url, headers=headers)
     soup = BeautifulSoup(r.text, "lxml")
-    stazioni = soup.find("div", "poilist-result-count").text
+    stazioni = soup.find("div", "poilist-result-count")
     NrStazioni= stazioni
     lista ="".join(map(str,soup.findAll("ul", "poilist clearfx")))
 
@@ -94,10 +95,10 @@ def about():
 
 @app.route('/tool2', methods=["POST", "GET"])
 def tool2():
-    global cap
     global lista
     cap = request.form.get('cap')
-    stazioni()
+    stazioni(cap)
+    print(lista)
     return render_template("tool2.html",
                            stazioni=str(lista),
                            cap = cap)
