@@ -10,21 +10,24 @@ def cap():
     cap = request.form.get('cap')
     return render_template('tool2.html', cap=cap)
     '''
+cap = None
+prezzo = 10.5
+j = 0
+lista = None
+soup = None
 headers={
     "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/99.0.4844.51 Safari/537.36"
   #  "Accept-Language": "en"
 }
-url = "https://www.viamichelin.it/web/Stazioni-di-servizio?address=70024"
-r = requests.get(url, headers=headers)
-soup = BeautifulSoup(r.text, "lxml")
-prezzo = 10.5
-j = 0
 
-
-
-stazioni = soup.find("div", "poilist-result-count").text
-NrStazioni= stazioni
-lista ="".join(map(str,soup.findAll("ul", "poilist clearfx")))
+def stazioni():
+    global soup
+    url = "https://www.viamichelin.it/web/Stazioni-di-servizio?address=" + str(cap)
+    r = requests.get(url, headers=headers)
+    soup = BeautifulSoup(r.text, "lxml")
+    stazioni = soup.find("div", "poilist-result-count").text
+    NrStazioni= stazioni
+    lista ="".join(map(str,soup.findAll("ul", "poilist clearfx")))
 
 
 
@@ -91,11 +94,16 @@ def about():
 
 @app.route('/tool2', methods=["POST", "GET"])
 def tool2():
+    global cap
+    global lista
+    cap = request.form.get('cap')
+    stazioni()
     return render_template("tool2.html",
-                           stazioni=str(lista))
+                           stazioni=str(lista),
+                           cap = cap)
 
 if __name__ == '__main__':
-    app.run(debug=False, host='0.0.0.0')
+    app.run(debug=True, host='0.0.0.0')
 
 
 #sostituire len(prezzo1) a stazioni      //print(prezzo1[0])
