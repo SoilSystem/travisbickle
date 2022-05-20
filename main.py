@@ -7,6 +7,7 @@ from json import dumps
 """
 @app.route('/tool2', methods=['post', 'get'])
 def cap():
+    professore succhiami la minchia
     cap = request.form.get('cap')
     return render_template('tool2.html', cap=cap)
     """
@@ -16,7 +17,6 @@ lista = None
 soup = None
 headers = {
     "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/99.0.4844.51 Safari/537.36"
-    #  "Accept-Language": "en"
 }
 
 
@@ -114,7 +114,3 @@ def tool3():
 
 if __name__ == "__main__":
     app.run(debug=True, host="0.0.0.0")
-
-
-# sostituire len(prezzo1) a stazioni      //print(prezzo1[0])
-# print(prezzo1[0].find("span", "poi-item-fuel-value").text)
