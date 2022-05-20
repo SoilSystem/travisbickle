@@ -4,42 +4,42 @@ import lxml
 from flask import Flask, render_template, request, send_file, redirect, session, g
 from json import dumps
 
-"""
-@app.route('/tool2', methods=['post', 'get'])
-def cap():
-    professore succhiami la minchia
-    cap = request.form.get('cap')
-    return render_template('tool2.html', cap=cap)
-    """
+
 prezzo = 10.5
-j = 0
 lista = None
 soup = None
+posizione = None
 headers = {
     "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/99.0.4844.51 Safari/537.36"
 }
 
 
-def stazioni(cap1):
+def stazioni(cap1,tipoCarb1):
+    global posizione
     global soup
     global lista
     url = "https://www.viamichelin.it/web/Stazioni-di-servizio?address=" + str(cap1)
-    print(url)
     r = requests.get(url, headers=headers)
     soup = BeautifulSoup(r.text, "lxml")
     stazioni = soup.find("div", "poilist-result-count")
     NrStazioni = stazioni
     lista = "".join(map(str, soup.findAll("ul", "poilist clearfx")))
+    if (tipoCarb1 == "b7"):
+        posizione = fungasolio()
+    elif (tipoCarb1 == "e5"):
+        posizione = funsp()
+    elif (tipoCarb1 == "lpg"):
+        posizione = fungpl()
+    elif (tipoCarb1 == "cng"):
+        posizione = funmet()
 
 
 def fungasolio():
     gasolio = soup.findAll("li", "poi-item-fuel-price-1")
     prezzo_gasolio = prezzo
-    jgas = j
+    jgas = 0
     for i in gasolio:
-        if prezzo_gasolio > float(
-            gasolio[jgas].find("span", "poi-item-fuel-value").text
-        ):
+        if prezzo_gasolio > float(gasolio[jgas].find("span", "poi-item-fuel-value").text):
             prezzo_gasolio = float(
                 gasolio[jgas].find("span", "poi-item-fuel-value").text
             )
@@ -51,7 +51,7 @@ def fungasolio():
 def funsp():
     sp95 = soup.findAll("li", "poi-item-fuel-price-2")
     prezzo_sp95 = prezzo
-    jsp = j
+    jsp = 0
     for i in sp95:
         if prezzo_sp95 > float(sp95[jsp].find("span", "poi-item-fuel-value").text):
             prezzo_sp95 = float(sp95[jsp].find("span", "poi-item-fuel-value").text)
@@ -63,10 +63,12 @@ def funsp():
 def fungpl():
     gpl = soup.findAll("li", "poi-item-fuel-price-4")
     prezzo_gpl = prezzo
-    jgpl = j
+    jgpl = 0
     for i in gpl:
         if prezzo_gpl > float(gpl[jgpl].find("span", "poi-item-fuel-value").text):
+
             prezzo_gpl = float(gpl[jgpl].find("span", "poi-item-fuel-value").text)
+
             posgpl = jgpl
         jgpl = jgpl + 1
     return prezzo_gpl
@@ -75,11 +77,11 @@ def fungpl():
 def funmet():
     metano = soup.findAll("li", "poi-item-fuel-price-8")
     prezzo_metano = prezzo
-    jmet = j
+    jmet = 0
     for i in metano:
         if prezzo_metano > float(metano[jmet].find("span", "poi-item-fuel-value").text):
             prezzo_metano = float(metano[jmet].find("span", "poi-item-fuel-value").text)
-            posmetano = j
+            posmetano = 0
         jmet = jmet + 1
     return prezzo_metano
 
@@ -113,8 +115,13 @@ def tool2():
 def tool3():
     global lista
     cap = request.form["cap"]
-    stazioni(cap)
-    return render_template("tool3.html", stazioni=str(lista), cap=cap)
+    tipoCarb = request.form["carburante"]
+    stazioni(cap, tipoCarb)
+    return render_template("tool3.html", stazioni=str(lista),
+                           cap=cap,
+                           tipocarb = tipoCarb,
+                           posizione = posizione
+                           )
 
 
 if __name__ == "__main__":

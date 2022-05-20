@@ -16,7 +16,7 @@
          var undefined = document.getElementsByClassName("poi-item-fuel-price-");
         while(undefined.length > 0){
         undefined[0].parentNode.removeChild(undefined[0]);
-    }
+         }
       }
    </script>
    <body onload="controllo()" style="background-image: url('../static/assets/img/taxi.jpg');">
@@ -44,8 +44,10 @@
             <div class="row">
                <div class="col-xl-9 mx-auto" id="data">
                   <div class="cta-inner bg-faded text-center rounded" id="lista">
-                     <a href="tool2">Ritorna</a>
+                     <a id="altraRic"href="tool2">Esegui un'altra ricerca</a>
                      <br>
+                     <br>
+                     <h1 id="prezzo"></h1>
                      {{stazioni|safe }}
                   </div>
                </div>
@@ -67,4 +69,9 @@
          </div>
       </footer>
    </body>
+   <script>
+      var prezzo = {{posizione|safe}}
+      document.getElementById("prezzo").innerHTML = "Il prezzo migliore è: "+prezzo
+
+   </script>
 </html>
