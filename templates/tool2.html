@@ -13,37 +13,24 @@
       <header>
          <h1 class="site-heading text-center text-faded d-none d-lg-block">
             <span style = "text-shadow: 2px 2px 4px black;" class="site-heading-upper text-primary mb-3">TRAVIS'S BICKLE SPACE</span>
-            <span style = "text-shadow: 2px 2px 4px black;"class="site-heading-lower">Anytime, Anywhere.</span>
+            <span style = "text-shadow: 2px 2px 4px black;" class="site-heading-lower">Anytime, Anywhere.</span>
          </h1>
       </header>
-      <nav class="navbar navbar-expand-lg navbar-dark py-lg-4" id="mainNav">
-         <div class="container">
-            <a class="navbar-brand text-uppercase fw-bold d-lg-none" href="index.html"></a>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
-            <div class="collapse navbar-collapse" id="navbarSupportedContent">
-               <ul class="navbar-nav mx-auto">
-                  <li class="nav-item px-lg-4"><a class="nav-link text-uppercase" href="index">Home</a></li>
-                  <li class="nav-item px-lg-4"><a class="nav-link text-uppercase" href="about">About</a></li>
-                  <li class="nav-item px-lg-4"><a class="nav-link text-uppercase" href="tool2">My tool</a></li>
-               </ul>
-            </div>
-         </div>
-      </nav>
       <section class="page-section cta">
          <div class="container">
             <div class="row">
                <div class="col-xl-9 mx-auto" id="data">
                   <div class="cta-inner bg-faded text-center rounded" id="lista">
-                     <form action = "tool3" method = "get">
-                      <p style="font-size:40px">🚕</p><input type="text" placeholder="Inserire località (pref. CAP)" name="cap"><br>
+                     <form action = "tool3" method = "post">
+                        <p style="font-size:40px">🚕</p>
+                        <input type="text" name="cap" placeholder="Inserire località (pref. CAP)" ><br>
                         <input type="radio" id="b7" name="carburante" value="b7" >&nbsp;&nbsp;&nbsp;&nbsp;
-                        <input type="radio" id="e5" name="carburante"value="e5" >&nbsp;&nbsp;&nbsp;&nbsp;
+                        <input type="radio" id="e5" name="carburante" value="e5" >&nbsp;&nbsp;&nbsp;&nbsp;
                         <input type="radio" id="lpg" name="carburante" value="lpg" >&nbsp;&nbsp;&nbsp;&nbsp;
                         <input type="radio" id="cng" name="carburante" value="cng" ><br>
                         <input type="submit" value="Invia">
                      </form>
                      <br>
-                     {{stazioni|safe }}
                   </div>
                </div>
             </div>
