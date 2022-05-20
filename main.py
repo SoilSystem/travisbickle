@@ -93,6 +93,11 @@ def index():
     return render_template("index.html")
 
 
+@app.route("/index", methods=["POST", "GET"])
+def home():
+    return render_template("index.html")
+
+
 @app.route("/about", methods=["POST", "GET"])
 def about():
     return render_template("about.html")
