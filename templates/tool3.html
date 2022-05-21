@@ -19,7 +19,7 @@
          }
       }
    </script>
-   <body onload="controllo()" onload="prezzo()" style="background-image: url('../static/assets/img/taxi.jpg');">
+   <body onload="controllo()" style="background-image: url('../static/assets/img/taxi.jpg');">
       <header>
          <h1 class="site-heading text-center text-faded d-none d-lg-block">
             <span style = "text-shadow: 2px 2px 4px black;" class="site-heading-upper text-primary mb-3">TRAVIS'S BICKLE SPACE</span>
@@ -47,7 +47,8 @@
                      <a id="altraRic"href="tool2">Esegui un'altra ricerca</a>
                      <br>
                      <br>
-                     <h1 id="prezzo"></h1>
+                     <h1>Il miglior prezzo è: {{posizione|safe}}</h1>
+                     <ul id="sort" class="poilist clearfx"></ul>
                      {{stazioni|safe }}
                   </div>
                </div>
@@ -70,31 +71,39 @@
       </footer>
    </body>
    <script>
-   var i
-   var t
-      var prezzo = {{posizione|safe}}
-      document.getElementById("prezzo").innerHTML = "Il prezzo migliore è: "+prezzo
+   var i,j,min
+      var valore = ""
       var carb = sessionStorage.getItem("carb")
       var stazione = document.getElementsByClassName("poi-item-gasStation")
-      if(carb == "b7")
-      {
-         for(i=0; i < stazione.length; i++)
-         {
-            if(stazione[i].getElementsByClassName("poi-item-fuel-price-1")[0].getElementsByClassName("poi-item-fuel-value")[0].innerHTML == prezzo)
-            {
-            t = stazione[0].innerHTML
-            stazione[0].innerHTML = stazione[i].innerHTML
-            stazione[i].innerHTML = t
-            }
-         }
+      if(carb=="b7")
+      { valore="1"}
+      else if(carb=="e5")
+      {valore="2"}
+      else if(carb=="lpg")
+      { valore="4"}
+      else if(carb=="cng")
+      { valore="8"}
 
-         for(i=0; i < stazione.length; i++)
+      var elemento = document.getElementsByClassName("poi-item-fuel-price-"+ valore)
+         for(i=0; i < elemento.length-1; i++)
          {
-            if(stazione[i].getElementsByClassName("poi-item-fuel-price-1")[0].getElementsByClassName("poi-item-fuel-value")[0].innerHTML*1>stazione[i].getElementsByClassName("poi-item-fuel-price-1")[0].getElementsByClassName("poi-item-fuel-value")[0].innerHTNL*1)
+            min = i
+            for(j=i+1; j < elemento.length; j++)
             {
-            stazione[i].innerHTML = stazione[i+1].innerHTML
+                  if(elemento[j].getElementsByClassName("poi-item-fuel-value")[0].innerHTML*1 < elemento[min].getElementsByClassName("poi-item-fuel-value")[0].innerHTML*1)
+                  {
+                     min = j
+                 }
             }
+            var t = elemento[min].innerHTML
+            elemento[min].innerHTML = elemento[i].innerHTML
+            elemento[i].innerHTML = t
+
          }
-      }
+         for(i=0; i < elemento.length; i++)
+         {
+            document.getElementById("sort").appendChild(elemento[i].parentElement.parentElement)
+            elemento[i].parentElement.parentElement.innerHTML = stazione[i].innerHTML
+         }
    </script>
 </html>

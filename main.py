@@ -43,7 +43,6 @@ def fungasolio():
             prezzo_gasolio = float(
                 gasolio[jgas].find("span", "poi-item-fuel-value").text
             )
-            posgasolio = jgas
         jgas = jgas + 1
     return prezzo_gasolio
 
@@ -55,7 +54,6 @@ def funsp():
     for i in sp95:
         if prezzo_sp95 > float(sp95[jsp].find("span", "poi-item-fuel-value").text):
             prezzo_sp95 = float(sp95[jsp].find("span", "poi-item-fuel-value").text)
-            possp95 = jsp
         jsp = jsp + 1
     return prezzo_sp95
 
@@ -66,10 +64,7 @@ def fungpl():
     jgpl = 0
     for i in gpl:
         if prezzo_gpl > float(gpl[jgpl].find("span", "poi-item-fuel-value").text):
-
             prezzo_gpl = float(gpl[jgpl].find("span", "poi-item-fuel-value").text)
-
-            posgpl = jgpl
         jgpl = jgpl + 1
     return prezzo_gpl
 
@@ -81,7 +76,6 @@ def funmet():
     for i in metano:
         if prezzo_metano > float(metano[jmet].find("span", "poi-item-fuel-value").text):
             prezzo_metano = float(metano[jmet].find("span", "poi-item-fuel-value").text)
-            posmetano = 0
         jmet = jmet + 1
     return prezzo_metano
 
