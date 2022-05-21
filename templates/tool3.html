@@ -19,7 +19,7 @@
          }
       }
    </script>
-   <body onload="controllo()" style="background-image: url('../static/assets/img/taxi.jpg');">
+   <body onload="controllo()" onload="prezzo()" style="background-image: url('../static/assets/img/taxi.jpg');">
       <header>
          <h1 class="site-heading text-center text-faded d-none d-lg-block">
             <span style = "text-shadow: 2px 2px 4px black;" class="site-heading-upper text-primary mb-3">TRAVIS'S BICKLE SPACE</span>
@@ -70,8 +70,31 @@
       </footer>
    </body>
    <script>
+   var i
+   var t
       var prezzo = {{posizione|safe}}
       document.getElementById("prezzo").innerHTML = "Il prezzo migliore è: "+prezzo
+      var carb = sessionStorage.getItem("carb")
+      var stazione = document.getElementsByClassName("poi-item-gasStation")
+      if(carb == "b7")
+      {
+         for(i=0; i < stazione.length; i++)
+         {
+            if(stazione[i].getElementsByClassName("poi-item-fuel-price-1")[0].getElementsByClassName("poi-item-fuel-value")[0].innerHTML == prezzo)
+            {
+            t = stazione[0].innerHTML
+            stazione[0].innerHTML = stazione[i].innerHTML
+            stazione[i].innerHTML = t
+            }
+         }
 
+         for(i=0; i < stazione.length; i++)
+         {
+            if(stazione[i].getElementsByClassName("poi-item-fuel-price-1")[0].getElementsByClassName("poi-item-fuel-value")[0].innerHTML*1>stazione[i].getElementsByClassName("poi-item-fuel-price-1")[0].getElementsByClassName("poi-item-fuel-value")[0].innerHTNL*1)
+            {
+            stazione[i].innerHTML = stazione[i+1].innerHTML
+            }
+         }
+      }
    </script>
 </html>

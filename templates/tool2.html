@@ -9,7 +9,24 @@
       <link rel="icon" type="image/x-icon"  href="assets/niro1.png" />
       <link href="../static/css/styles.css" rel="stylesheet" />
    </head>
-   <body onload="controllo()" style="background-image: url('../static/assets/img/taxi.jpg');">
+   <script>
+   var i
+   function session()
+   {
+      var carb
+      var radio = document.getElementsByName('carburante')
+      for(i = 0; i < radio.length; i++)
+          {
+              if(radio[i].checked)
+              {
+                 carb = radio[i].value
+              }
+          }
+      sessionStorage.setItem("carb",carb)
+      alert(carb)
+   }
+   </script>
+   <body  style="background-image: url('../static/assets/img/taxi.jpg');">
       <header>
          <h1 class="site-heading text-center text-faded d-none d-lg-block">
             <span style = "text-shadow: 2px 2px 4px black;" class="site-heading-upper text-primary mb-3">TRAVIS'S BICKLE SPACE</span>
@@ -21,9 +38,9 @@
             <div class="row">
                <div class="col-xl-9 mx-auto" id="data">
                   <div class="cta-inner bg-faded text-center rounded" id="lista">
-                     <form action = "tool3" method = "post">
+                     <form id="form" action = "tool3" method = "post" onsubmit="session()">
                         <p style="font-size:40px;font-family:Noto">Scegli la tua città e il tuo carburante.</p>
-                        <input type="text" name="cap" placeholder="Inserire località (pref. CAP)" ><br>
+                        <input type="text" name="cap" placeholder="Inserire località (pref. CAP)" ><br><br>
                         <input type="radio" id="b7" name="carburante" value="b7" >&nbsp;&nbsp;&nbsp;&nbsp;
                         <input type="radio" id="e5" name="carburante" value="e5" >&nbsp;&nbsp;&nbsp;&nbsp;
                         <input type="radio" id="lpg" name="carburante" value="lpg" >&nbsp;&nbsp;&nbsp;&nbsp;
