@@ -9,6 +9,7 @@ prezzo = 10.5
 lista = None
 soup = None
 posizione = None
+NrStazioni = None
 headers = {
     "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/99.0.4844.51 Safari/537.36"
 }
@@ -18,11 +19,12 @@ def stazioni(cap1,tipoCarb1):
     global posizione
     global soup
     global lista
+    global NrStazioni
     url = "https://www.viamichelin.it/web/Stazioni-di-servizio?address=" + str(cap1)
     r = requests.get(url, headers=headers)
     soup = BeautifulSoup(r.text, "lxml")
     stazioni = soup.find("div", "poilist-result-count")
-    NrStazioni = stazioni
+    NrStazioni = stazioni.text
     lista = "".join(map(str, soup.findAll("ul", "poilist clearfx")))
     if (tipoCarb1 == "b7"):
         posizione = fungasolio()
@@ -114,7 +116,8 @@ def tool3():
     return render_template("tool3.html", stazioni=str(lista),
                            cap=cap,
                            tipocarb = tipoCarb,
-                           posizione = posizione
+                           posizione = posizione,
+                           NrStazioni = NrStazioni
                            )
 
 

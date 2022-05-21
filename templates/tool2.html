@@ -8,6 +8,46 @@
       <title>Tool</title>
       <link rel="icon" type="image/x-icon"  href="assets/niro1.png" />
       <link href="../static/css/styles.css" rel="stylesheet" />
+         <style>
+      button {
+        display: inline-block;
+        background-color: black;
+        border-radius: 10px;
+        border: 4px double #cccccc;
+        color: #eeeeee;
+        text-align: center;
+        font-size: 14px;
+        padding: 10px;
+        width: 100px;
+        transition: all 0.5s;
+        cursor: pointer;
+        margin: 5px;
+      }
+      button span {
+        cursor: pointer;
+        display: inline-block;
+        position: relative;
+        transition: 0.5s;
+      }
+      button span:after {
+        content: '\00bb';
+        position: absolute;
+        opacity: 0;
+        top: 0;
+        right: -20px;
+        transition: 0.5s;
+      }
+      button:hover {
+        background-color: #b8860b;
+      }
+      button:hover span {
+        padding-right: 25px;
+      }
+      button:hover span:after {
+        opacity: 1;
+        right: 0;
+      }
+    </style>
    </head>
    <script>
    var i
@@ -23,7 +63,6 @@
               }
           }
       sessionStorage.setItem("carb",carb)
-      alert(carb)
    }
    </script>
    <body  style="background-image: url('../static/assets/img/taxi.jpg');">
@@ -41,11 +80,17 @@
                      <form id="form" action = "tool3" method = "post" onsubmit="session()">
                         <p style="font-size:40px;font-family:Noto">Scegli la tua città e il tuo carburante.</p>
                         <input type="text" name="cap" placeholder="Inserire località (pref. CAP)" required><br><br>
-                        <input type="radio" id="b7" name="carburante" value="b7" required>&nbsp;&nbsp;&nbsp;&nbsp;
-                        <input type="radio" id="e5" name="carburante" value="e5" required>&nbsp;&nbsp;&nbsp;&nbsp;
-                        <input type="radio" id="lpg" name="carburante" value="lpg" required>&nbsp;&nbsp;&nbsp;&nbsp;
+                        <input type="radio" id="b7" name="carburante" value="b7" required>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                        <input type="radio" id="e5" name="carburante" value="e5" required>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                        <input type="radio" id="lpg" name="carburante" value="lpg" required>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                         <input type="radio" id="cng" name="carburante" value="cng" required><br>
-                        <input type="submit" value="Invia">
+                        <span style="background-color:#f7e011" class="poi-item-fuel-type"><em>B7</em></span>&nbsp;&nbsp;&nbsp;&nbsp;
+                        <span style="background-color:#34b305" class="poi-item-fuel-type"><em>E5</em></span>&nbsp;&nbsp;&nbsp;
+                        <span style="background-color:#4783fc" class="poi-item-fuel-type"><em>GPL</em></span>&nbsp;&nbsp;&nbsp;
+                        <span style="background-color:#00d0ff" class="poi-item-fuel-type"><em>CNG</em></span>
+                        <br>
+                        <br>
+                        <button type="submit"><span>Invia</span></button>
                      </form>
                      <br>
                   </div>
