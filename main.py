@@ -1,8 +1,6 @@
 import requests
 from bs4 import BeautifulSoup
-import lxml
 from flask import Flask, render_template, request, send_file, redirect, session, g
-from json import dumps
 
 
 prezzo = 10.5
