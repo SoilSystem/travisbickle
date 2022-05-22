@@ -97,15 +97,13 @@
                      min = j
                  }
             }
-            var t = elemento[min].innerHTML
-            elemento[min].innerHTML = elemento[i].innerHTML
-            elemento[i].innerHTML = t
-
+            var t = elemento[min].parentElement.parentElement.innerHTML
+            elemento[min].parentElement.parentElement.innerHTML = elemento[i].parentElement.parentElement.innerHTML
+            elemento[i].parentElement.parentElement.innerHTML = t
          }
          for(i=0; i < elemento.length; i++)
          {
             document.getElementById("sort").appendChild(elemento[i].parentElement.parentElement)
-            elemento[i].parentElement.parentElement.innerHTML = stazione[i].innerHTML
          }
          for(i=0; i < document.getElementsByClassName("poi-item-gasStation").length; i++)
          {
